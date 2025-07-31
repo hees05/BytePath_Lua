@@ -2,26 +2,22 @@ Object = require 'libraries/classic/classic'
 Input = require 'libraries/Input/Input'
 require 'objects/Circle'
 require 'objects/HyperCircle'
+
+local sum = 0
+local input
+
 function love.load()
-    hyper = HyperCircle(400, 300, 50, 10, 120)
+    input = Input()
+    input:bind('space', 'add')
 end
 
 function love.update(dt)
+    if input:down('add', 0.25) then
+        sum = sum + 1
+        print("Sum:", sum)
+    end
 end
 
 function love.draw()
-    hyper:draw()
+    love.graphics.print("Sum: " .. sum, 10 ,10)
 end
-
-function createMyTable()
-    local t = {
-        a = 1, b = 2, c = 3, 
-        sum = function(self)
-            self.c = self.a + self.b + self.c
-        end
-    }
-    t:sum()
-    return t 
-end
-local my_table = createMyTable()
-print(my_table.c)
