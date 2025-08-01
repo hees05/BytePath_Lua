@@ -1,35 +1,53 @@
 Object = require 'libraries/classic/classic'
 Input = require 'libraries/Input/Input'
+Timer = require 'libraries/hump/timer'
+Moses = require 'libraries/Moses/moses'
 require 'objects/Circle'
 require 'objects/HyperCircle'
 
-local sum = 0
-local input
+Map = Moses()
+a = {1, 2, '3', 4, '5', 6, 7, true, 9, 10, 11, a = 1, b =2, c =3, {1,2,3}}
+b = {1, 1, 3, 4, 5, 6, 7, false}
+c = {'1', '2', '3', 4, 5, 6}
+d = {1, 4, 3, 4, 5, 6}
 
+a= Map.map(a, function(v)
+    if type(v) == "number" then
+        return v*2
+    end
+    if type(v) == "string" then
+        return v .. "xD"
+    end
+    if type(v) == "boolean" then 
+        return not v
+    end
+    if type(v) == "table" then
+        return nil
+    end
+end)
+for i,v in ipairs(a) do
+    print(i,v)
+end
+
+local bool = false
 function love.load()
-    input = Input()
-    input:bind('space', 'add')
-    input:bind('up', 'up')
-    input:bind('down', 'down')
-    input:bind('right', 'right')
-    input:bind('left', 'left')
+    timer = Timer()
+    circle = {radius = 10}
+    local function pulseOut()
+        timer:tween(6, circle, {radius = 96}, 'in-out-cubic', pulseIn)
+    end
+
+    function pulseIn()
+        timer:tween(6, circle, {radius = 10}, 'in-out-cubic', pulseOut)
+    end
+
+    pulseOut()
 end
 
 function love.update(dt)
-    if input:down('up', 0.25) then
-        print("Up key pressed")
-    end
-    if input:down('down', 0.25) then
-        print("down key pressed")
-    end
-    if input:down('right', 0.25) then
-        print("right key pressed")
-    end
-    if input:down('left', 0.25) then
-        print("left key pressed")
-    end
+    timer:update(dt)
 end
 
 function love.draw()
-    love.graphics.print("Sum: " .. sum, 10 ,10)
+    love.graphics.circle('fill', 400, 300, circle.radius)
 end
