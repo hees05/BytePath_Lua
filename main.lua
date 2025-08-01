@@ -4,12 +4,10 @@ Timer = require 'libraries/hump/timer'
 Moses = require 'libraries/Moses/moses'
 require 'rooms/GameObject'
 require 'objects/Circle'
-require 'objects/HyperCircle'
-require 'rooms/CircleRoom'
 require 'rooms/RectangleRoom'
-require 'rooms/PolygonRoom'
 require 'rooms/Stage'
 require 'rooms/Area'
+require 'conf'
 function love.load()
     stage = Stage()
 end
