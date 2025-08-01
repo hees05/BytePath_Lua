@@ -16,11 +16,10 @@ for k,v in ipairs(d) do
 print(v)
 end
 
-for k, v in ipairs(c) do
-    if v == 7 then
-        print(k) 
-        return
-    end
-end
 
+
+c = Map.filter(c, function(v) return type(v) == 'string' end) 
+for k,v in pairs(c) do
+print(v)
+end
 
