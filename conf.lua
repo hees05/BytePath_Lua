@@ -1,7 +1,7 @@
-gw = 480 
-gh = 270 
-sx = 1
-sy = 1
+gw = 440
+gh = 270
+sx = 3
+sy = 3
 
 function love.conf(t)
     t.identity = nil                   -- The name of the save directory (string)

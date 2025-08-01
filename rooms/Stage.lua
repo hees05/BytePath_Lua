@@ -3,29 +3,30 @@ require 'rooms/Area'
 require 'objects/Circle'
 require 'libraries/hump/timer'
 require 'rooms/GameObject'
+require 'objects/Player'
 Stage = Object:extend()
 
 function Stage:new()
     self.area = Area(self)
-    self.timer = Timer()
-
-    self.timer:every(2, function()
-        local x = love.math.random(100, 700)
-        local y = love.math.random(100, 500)
-        local circle = self.area:addGameObject('Circle', x, y, {})
-
-        local t = love.math.random(2,4)
-        self.timer:after(t, function()
-            circle.dead = true
-        end)
-    end)
+    self.main_canvas = love.graphics.newCanvas(gw, gh) -- this creates a canvas with the base resolution in the constructor of the Stage class
 end
 
 function Stage:update(dt)
-    self.timer:update(dt)
     self.area:update(dt)
+    self.area:addGameObject('Player', gw/2, gh/2) --adding the player to the Stage room
 end
 
 function Stage:draw()
+    love.graphics.setCanvas(self.main_canvas)
+    love.graphics.clear()
+    love.graphics.circle('line', gw/2, gh/2, 50)
     self.area:draw()
+    love.graphics.setCanvas()
+
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setBlendMode('alpha', 'premultiplied')
+    love.graphics.draw(self.main_canvas, 0, 0, 0, sx, sy)
+    love.graphics.setBlendMode('alpha')
 end
+
+

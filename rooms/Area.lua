@@ -25,7 +25,7 @@ end
 
 function Area:addGameObject(game_object_type, x, y, opts)
     local opts = opts or {}
-    local game_object = _G[game_object_type](self, x or 0, y or 0, opts)
+    local game_object = _G[game_object_type](self, x or 0, y or 0, opts or nil)
     table.insert(self.game_objects, game_object)
     return game_object
 end 
