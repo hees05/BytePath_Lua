@@ -1,13 +1,12 @@
-Circle = Object:extend()
+Circle = GameObject:extend()
 
-function Circle:new(x, y, r)
-    self.x = x
-    self.y = y
-    self.r = r
+function Circle:new(area, x, y, opts)
+    Circle.super.new(self, area, x, y, opts)
+    self.r = 30
 end
 
 function Circle:update(dt)
-    self.x = self.x + 30 * dt --Moving to the right slowly. 
+   
 end
 
 function Circle:draw()

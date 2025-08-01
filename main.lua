@@ -2,48 +2,25 @@ Object = require 'libraries/classic/classic'
 Input = require 'libraries/Input/Input'
 Timer = require 'libraries/hump/timer'
 Moses = require 'libraries/Moses/moses'
+require 'rooms/GameObject'
 require 'objects/Circle'
 require 'objects/HyperCircle'
 require 'rooms/CircleRoom'
 require 'rooms/RectangleRoom'
 require 'rooms/PolygonRoom'
-
+require 'rooms/Stage'
+require 'rooms/Area'
 function love.load()
-    input = Input()
-    input:bind('f1', 'circle_room')
-    input:bind('f2', 'rectangle_room')
-    input:bind('f3', 'polygon_room')
-
-    rooms = {}
-    current_room = nil
-
-    addRoom('CircleRoom', 'circle_room')
-    addRoom('RectangleRoom', 'rectangle_room')
-    addRoom('PolygonRoom', 'polygon_room')
-
-    goToRoom('CircleRoom', 'circle_room') --default room 
+    stage = Stage()
 end
 
 function love.update(dt)
-    if input:pressed('circle_room') then 
-        goToRoom('CircleRoom', 'circle_room') 
-    end
-
-    if input:pressed('rectangle_room') then
-        goToRoom('RectangleRoom', 'rectangle_room')
-    end
-
-    if input:pressed('polygon_room') then
-        goToRoom('PolygonRoom', 'polygon_room')
-    end
-
-    if current_room then current_room: update(dt) end
+    if stage then stage:update(dt) end
 end
 
 function love.draw()
-    if current_room then current_room:draw() end
+    if stage then stage:draw() end
 end
-
 
 function goToRoom(room_type, room_name, ...)
     if current_room and rooms[room_name] then
@@ -60,7 +37,6 @@ function addRoom(room_type, room_name, ...)
         rooms[room_name] = room
         return room
     end
-
 
 
 
