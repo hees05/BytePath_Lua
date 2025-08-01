@@ -8,34 +8,19 @@ require 'objects/HyperCircle'
 Map = Moses()
 a = {1, 2, '3', 4, '5', 6, 7, true, 9, 10, 11, a = 1, b =2, c =3, {1,2,3}}
 b = {1, 1, 3, 4, 5, 6, 7, false}
-c = {'1', '2', '3', 4, 5, 6}
+c = {'1', '2', '3', 4, 5, 6, 7}
 d = {1, 4, 3, 4, 5, 6}
 
-local sum = 0
+d = Map.filter(d, function(v) return v<5 end)
 for k,v in ipairs(d) do
-    sum = sum + v
+print(v)
 end
-print(sum)
 
-local bool = false
-function love.load()
-    timer = Timer()
-    circle = {radius = 10}
-    local function pulseOut()
-        timer:tween(6, circle, {radius = 96}, 'in-out-cubic', pulseIn)
+for k, v in ipairs(c) do
+    if v == 7 then
+        print(k) 
+        return
     end
-
-    function pulseIn()
-        timer:tween(6, circle, {radius = 10}, 'in-out-cubic', pulseOut)
-    end
-
-    pulseOut()
 end
 
-function love.update(dt)
-    timer:update(dt)
-end
 
-function love.draw()
-    love.graphics.circle('fill', 400, 300, circle.radius)
-end
