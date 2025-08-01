@@ -11,23 +11,11 @@ b = {1, 1, 3, 4, 5, 6, 7, false}
 c = {'1', '2', '3', 4, 5, 6}
 d = {1, 4, 3, 4, 5, 6}
 
-a= Map.map(a, function(v)
-    if type(v) == "number" then
-        return v*2
-    end
-    if type(v) == "string" then
-        return v .. "xD"
-    end
-    if type(v) == "boolean" then 
-        return not v
-    end
-    if type(v) == "table" then
-        return nil
-    end
-end)
-for i,v in ipairs(a) do
-    print(i,v)
+local sum = 0
+for k,v in ipairs(d) do
+    sum = sum + v
 end
+print(sum)
 
 local bool = false
 function love.load()
